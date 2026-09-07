@@ -24,11 +24,9 @@ export function SiteHeader() {
             <span className="edition-badge">ডিজিটাল সংস্করণ</span>
             <span>সত্যের সন্ধানে প্রতিদিন</span>
           </div>
-
           <Link className="brand-lockup" href="/" aria-label={`${siteConfig.name} প্রচ্ছদ`}>
             <img className="brand-logo" src={ORIGINAL_LOGO} alt="দৈনিক জাহান" />
           </Link>
-
           <div className="masthead-side masthead-side-right">
             <Link href="/search" className="header-action">খুঁজুন <span aria-hidden="true">⌕</span></Link>
             <span>জনস্বার্থে সংবাদ</span>
@@ -36,7 +34,7 @@ export function SiteHeader() {
         </div>
 
         <div className="mobile-brand-row">
-          <div className="round-logo" aria-hidden="true"><span>জাহান</span></div>
+          <div className="round-logo" aria-hidden="true"><img src={ORIGINAL_LOGO} alt="" /></div>
           <div><strong>দৈনিক জাহান</strong><small>সত্যের সন্ধানে প্রতিদিন</small></div>
         </div>
 
