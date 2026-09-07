@@ -20,4 +20,9 @@ export interface Article {
   seoDescription?: string;
   isBreaking?: boolean;
   isFeatured?: boolean;
+  originalUrl?: string;
+  canonicalUrl?: string;
+  source?: string;
+  legacyUrl?: string;
+  importedAt?: string;
 }
