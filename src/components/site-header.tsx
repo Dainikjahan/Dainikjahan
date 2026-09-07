@@ -34,7 +34,7 @@ export function SiteHeader() {
         </div>
 
         <div className="mobile-brand-row">
-          <div className="round-logo" aria-hidden="true"><img src={ORIGINAL_LOGO} alt="" /></div>
+          <div className="round-logo" aria-hidden="true"><img src={ORIGINAL_LOGO} alt="" style={{ width: "52px", height: "52px", objectFit: "contain" }} /></div>
           <div><strong>দৈনিক জাহান</strong><small>সত্যের সন্ধানে প্রতিদিন</small></div>
         </div>
 
