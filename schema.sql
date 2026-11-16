@@ -1,0 +1,76 @@
+-- Dainik Jahan Phase 1 — D1 Schema (Master Prompt v2.0 §6)
+-- Capture everything, publish nothing without DJ-3 + human approval. HOLD is default.
+
+CREATE TABLE IF NOT EXISTS ingestion_items (
+  id TEXT PRIMARY KEY,
+  dedup_hash TEXT NOT NULL UNIQUE,
+  source_type TEXT NOT NULL,
+  source_url TEXT,
+  source_publisher TEXT,
+  title TEXT NOT NULL,
+  raw_body TEXT,
+  district TEXT,
+  news_type TEXT,
+  captured_at TEXT NOT NULL,
+  status TEXT NOT NULL DEFAULT 'HOLD'
+);
+
+CREATE TABLE IF NOT EXISTS claims (
+  id TEXT PRIMARY KEY,
+  ingestion_id TEXT REFERENCES ingestion_items(id),
+  claim_text TEXT NOT NULL,
+  district TEXT,
+  news_type TEXT,
+  created_at TEXT NOT NULL,
+  status TEXT NOT NULL DEFAULT 'HOLD'
+);
+
+CREATE TABLE IF NOT EXISTS sources (
+  id TEXT PRIMARY KEY,
+  claim_id TEXT NOT NULL REFERENCES claims(id) ON DELETE CASCADE,
+  url TEXT NOT NULL,
+  domain TEXT NOT NULL,
+  publisher TEXT NOT NULL,
+  source_kind TEXT NOT NULL,
+  captured_at TEXT NOT NULL,
+  notes TEXT
+);
+
+CREATE TABLE IF NOT EXISTS verifications (
+  claim_id TEXT PRIMARY KEY REFERENCES claims(id) ON DELETE CASCADE,
+  source_count INTEGER NOT NULL DEFAULT 0,
+  independent_publishers INTEGER NOT NULL DEFAULT 0,
+  has_primary INTEGER NOT NULL DEFAULT 0,
+  verdict TEXT NOT NULL DEFAULT 'HOLD',
+  reason TEXT,
+  verified_by TEXT,
+  verified_at TEXT,
+  updated_at TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS drafts (
+  id TEXT PRIMARY KEY,
+  claim_id TEXT NOT NULL REFERENCES claims(id),
+  title TEXT NOT NULL,
+  slug TEXT NOT NULL UNIQUE,
+  body_bangla TEXT NOT NULL,
+  seo_title TEXT,
+  seo_description TEXT,
+  news_keywords TEXT,
+  image_url TEXT,
+  image_credit TEXT,
+  status TEXT NOT NULL DEFAULT 'HOLD',
+  created_by TEXT NOT NULL,
+  updated_at TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS audit_log (
+  id TEXT PRIMARY KEY,
+  claim_id TEXT,
+  draft_id TEXT,
+  actor TEXT NOT NULL,
+  actor_role TEXT NOT NULL,
+  action TEXT NOT NULL,
+  reason TEXT,
+  created_at TEXT NOT NULL
+);

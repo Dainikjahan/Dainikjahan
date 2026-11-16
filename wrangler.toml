@@ -1,0 +1,32 @@
+# Dainik Jahan — Phase 1 STAGING ONLY on ukaiacademy.org subdomain
+# PRODUCTION dainikjahan.com is BLOCKED.
+name = "dainik-jahan-phase1"
+main = "src/ingestion.js"
+compatibility_date = "2026-11-16"
+[[d1_databases]]
+binding = "DB"
+database_name = "dainik-jahan-staging"
+database_id = "REPLACE_WITH_STAGING_D1_ID"
+[[queues.producers]]
+binding = "INGEST_QUEUE"
+queue = "dj-ingest-staging"
+[triggers]
+crons = ["*/5 * * * *"]
+[vars]
+ENV = "staging"
+SITE_URL = "https://dj-staging.ukaiacademy.org"
+[env.staging]
+name = "dainik-jahan-phase1-staging"
+routes = [{ pattern = "dj-staging.ukaiacademy.org", custom_domain = true }]
+[[env.staging.d1_databases]]
+binding = "DB"
+database_name = "dainik-jahan-staging"
+database_id = "REPLACE_WITH_STAGING_D1_ID"
+[[env.staging.queues.producers]]
+binding = "INGEST_QUEUE"
+queue = "dj-ingest-staging"
+[env.staging.triggers]
+crons = ["*/5 * * * *"]
+[env.staging.vars]
+ENV = "staging"
+SITE_URL = "https://dj-staging.ukaiacademy.org"

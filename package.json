@@ -1,0 +1,1 @@
+{"description":"Dainik Jahan Phase 1 — Staging only. DJ-3 gate, ingestion, SEO, Telegram editor card.","devDependencies":{},"name":"dainik-jahan-phase1","scripts":{"deploy:staging":"wrangler deploy --env staging","migrate:staging":"wrangler d1 execute dainik-jahan-staging --file=migrations/0001_init.sql","test":"node --test test/dj3.test.mjs"},"type":"module","version":"1.0.0"}
